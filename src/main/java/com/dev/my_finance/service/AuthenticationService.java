@@ -43,13 +43,8 @@ public class AuthenticationService {
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        try{
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(request.email(), request.password()));
-        }catch (Exception e){
-            e.printStackTrace();
-            throw e;
-        }
+        authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(request.email(), request.password()));
 
         var user = userRepository.findByEmail(request.email()).orElseThrow(
                 ()-> new UsernameNotFoundException("User not found"));
