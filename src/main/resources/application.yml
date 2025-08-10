@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/my-finance
+    username: varshith
+    password: Beast@098
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+app:
+  secret-key: 03260ce1d11be80d8b4e2aeeff18818f0267a63bdd3b6ae9c9099250733eacc0d60ddd7430ac657b243024c1ca4a7811698eebcf6ccb4305643e103f51b66d4151ffd846d77dac9610a8950c6444fe9db313325a14c1f4256dc788309ffc57c605184d3592ce676fcc30b961e24b7e583c0d5bcb45abb7f7626f43541e9195c5
+  jwt:
+    expiration: 86400000
+    refresh-token:
+      expiration: 10000
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
