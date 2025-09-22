@@ -1,6 +1,7 @@
 package com.dev.my_finance.config;
 
 
+import com.dev.my_finance.repository.TokenRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -26,6 +27,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
     private final HandlerExceptionResolver handlerExceptionResolver;
+    private final TokenRepository tokenRepository;
 
     @Override
     protected void doFilterInternal(
@@ -50,7 +52,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 //            extract user details
                 UserDetails userDetails = userDetailsService.loadUserByUsername(userEmail);
 //            if token is valid not expired and userName in token is equals to userDetails
-                if (jwtService.isTokenValid(jwt,userDetails)) {
+
+                var isTokenValid = tokenRepository.findByToken(jwt)
+                        .map(t -> !t.isExpired() && !t.isRevoked())
+                        .orElse(false);
+
+                if (jwtService.isTokenValid(jwt,userDetails) && isTokenValid) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                             userDetails, null,userDetails.getAuthorities()
                     );
