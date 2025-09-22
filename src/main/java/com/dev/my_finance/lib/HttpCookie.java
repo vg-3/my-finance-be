@@ -1,4 +1,4 @@
-package com.dev.my_finance.utils;
+package com.dev.my_finance.lib;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

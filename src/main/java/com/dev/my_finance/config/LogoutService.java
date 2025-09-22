@@ -2,8 +2,7 @@ package com.dev.my_finance.config;
 
 import com.dev.my_finance.exceptions.UnauthorizedException;
 import com.dev.my_finance.repository.TokenRepository;
-import com.dev.my_finance.utils.HttpCookie;
-import jakarta.servlet.http.Cookie;
+import com.dev.my_finance.lib.HttpCookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

@@ -14,16 +14,19 @@ public class User {
     public String get(){
        throw new ResourceNotFoundException("Resource Not Found");
     }
+
     @PutMapping()
     @PreAuthorize("hasAuthority('user:update')")
     public String put(){
         return "user put";
     }
+
     @PostMapping()
     @PreAuthorize("hasAuthority('user:create')")
     public String post(){
         return "user post";
     }
+
     @DeleteMapping()
     @PreAuthorize("hasAuthority('user:delete')")
     public String delete(){
