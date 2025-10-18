@@ -11,6 +11,7 @@ import com.dev.my_finance.enumeration.Role;
 import com.dev.my_finance.enumeration.TokenType;
 import com.dev.my_finance.exceptions.ResourceNotFoundException;
 import com.dev.my_finance.exceptions.UnauthorizedException;
+import com.dev.my_finance.exceptions.UserAlreadyExistsException;
 import com.dev.my_finance.repository.TokenRepository;
 import com.dev.my_finance.repository.UserRepository;
 import com.dev.my_finance.lib.HttpCookie;
@@ -43,6 +44,11 @@ public class AuthenticationService {
 
 
     public AuthenticationResponse register(RegisterRequest request, HttpServletResponse response) {
+
+        if(userRepository.existsByEmail(request.email())){
+            throw new UserAlreadyExistsException("User Already Exists");
+        }
+
         var user = User.builder()
                 .firstName(request.firstName())
                 .lastName(request.lastName())
