@@ -12,6 +12,7 @@ public record LoanCreateRequest(Double principalAmount,
                                 float interestRate,
                                 LoanType loanType,
                                 LoanStatus status,
+                                LocalDateTime startDate,
                                 LocalDateTime endDate,
                                 Long userId,
                                 Long receiverId

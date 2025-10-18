@@ -101,7 +101,7 @@ public class LoanService {
                 .interestRate(loanCreateRequest.interestRate())
                 .loanType(loanCreateRequest.loanType())
                 .status(LoanStatus.ACTIVE)
-                .startDate(LocalDateTime.now())
+                .startDate(loanCreateRequest.startDate())
                 .endDate(loanCreateRequest.loanType().equals(LoanType.WEEKLY) ?
                         Utils.addTenWeeks(LocalDateTime.now()) :
                         loanCreateRequest.endDate() != null ? loanCreateRequest.endDate() : null)
@@ -152,6 +152,29 @@ public class LoanService {
                 .build();
     }
 
+    public SuccessResponse deleteLoan(Long loanId) {
+
+        Loan loan = loanRepository.findById(loanId)
+                .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
+
+        loanRepository.deleteById(loanId);
+
+        return SuccessResponse.builder()
+                .message("Loan Deleted Successfully")
+                .build();
+    }
+
+    public SuccessResponse closeLoan(Long loanId) {
+        Loan loan = loanRepository.findById(loanId)
+                .orElseThrow(() -> new ResourceNotFoundException("Loan not found"));
+
+        loan.setStatus(LoanStatus.CLOSED);
+        loanRepository.save(loan);
+
+        return SuccessResponse.builder()
+                .message("Loan Deleted Successfully")
+                .build();
+    }
 
 
 //    private Receiver resolveReceiver(LoanCreateRequest loanCreateRequest, User lender){

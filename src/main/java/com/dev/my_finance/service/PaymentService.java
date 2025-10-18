@@ -41,7 +41,7 @@ public class PaymentService {
 
         Payment payment =  Payment.builder()
                 .amountPaid(recordPaymentRequest.amount())
-                .paymentDate(LocalDateTime.now())
+                .paymentDate(recordPaymentRequest.paymentDate())
                 .paymentType(recordPaymentRequest.paymentType())
                 .loan(loan)
                 .build();

@@ -34,4 +34,14 @@ public class LoanController {
         return loanService.updateLoan(loanUpdateRequest);
     }
 
+    @DeleteMapping("/{loanId}")
+    public SuccessResponse deleteLoan(@PathVariable Long loanId){
+        return loanService.deleteLoan(loanId);
+    }
+
+    @PutMapping("/{loanId}")
+    public SuccessResponse closeLoan(@PathVariable Long loanId){
+        return loanService.closeLoan(loanId);
+    }
+
 }
