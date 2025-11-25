@@ -13,6 +13,45 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - my-finance
+
+
+  keycloak:
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:26.4.5
+    ports:
+      - "9090:8080"
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    networks:
+      - my-finance
+    command:
+      - "start-dev"
+
+
+  spring-app:
+    container_name: my-finance-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-db:5432/my-finance
+      SPRING_DATASOURCE_USERNAME: varshith
+      SPRING_DATASOURCE_PASSWORD: Beast@098
+    ports:
+      - "8080:8080"
+    networks:
+      - my-finance
+    depends_on:
+      - postgres
+      - keycloak
+
+
+networks:
+  my-finance:
+    driver: bridge
 
 volumes:
   postgres_data:
