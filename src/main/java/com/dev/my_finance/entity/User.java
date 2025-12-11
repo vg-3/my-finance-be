@@ -7,7 +7,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,8 @@ public class User implements UserDetails {
     private String email;
     private String phoneNumber;
     private String password;
+    private String provider;
+    private String imageUrl;
     @Enumerated(EnumType.STRING)
     private Role role;
 
